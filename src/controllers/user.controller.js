@@ -1,5 +1,5 @@
-import { ApiError } from "../utils/apiError.util";
-import { asyncHandler } from "../utils/asyncHandler.util";
+import { ApiError } from "../utils/apiError.util.js";
+import { asyncHandler } from "../utils/asyncHandler.util.js";
 import { User } from "../models/user.model.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.util.js";
 import { ApiResponse } from "../utils/apiResponse.util.js";
@@ -130,7 +130,7 @@ const logoutUser = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, {}, "User logged Out"))
 })
 
-const getUserDetails = asyncHandler(async (req, res) => {
+const getCurrentUser = asyncHandler(async (req, res) => {
     const userId = req.user?._id;
 
     if (!userId) {
@@ -248,7 +248,7 @@ export {
     registerUser,
     loginUser,
     logoutUser,
-    getUserDetails,
+    getCurrentUser,
     updateUser,
     deleteUser,
     refreshAccessToken
