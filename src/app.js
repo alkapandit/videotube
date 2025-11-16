@@ -3,6 +3,8 @@ import helmet from "helmet";
 import morgan from "morgan";
 import cors from "cors";
 import userRouter from "./routes/user.route.js";
+import videoRouter from "./routes/video.route.js";
+import commentRouter from "./routes/comment.route.js";
 import { errorHandler } from "./middlewares/errorHandler.middleware.js";
 import dotenv from "dotenv";
 
@@ -14,8 +16,8 @@ app.use(helmet());
 app.use(morgan("dev"));
 app.use(
   cors({
-    origin: "http://localhost:5173", 
-    credentials: true, 
+    origin: "http://localhost:5173",
+    credentials: true,
   })
 );
 
@@ -24,6 +26,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/users", userRouter);
+app.use("/api/videos", videoRouter);
+app.use("/api/comment", commentRouter);
 
 app.use(errorHandler);
 

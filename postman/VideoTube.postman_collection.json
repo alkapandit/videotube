@@ -1,0 +1,102 @@
+{
+  "info": {
+    "_postman_id": "videotube-collection",
+    "name": "VideoTube API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000"
+    },
+    {
+      "key": "authToken",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {"key": "username", "type": "text"},
+                {"key": "email", "type": "text"},
+                {"key": "password", "type": "text"},
+                {"key": "avatar", "type": "file"},
+                {"key": "coverImage", "type": "file"}
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/users/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api","users","register"]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {"mode": "raw", "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"secret\"\n}"},
+            "url": {"raw": "{{baseUrl}}/api/users/login","host": ["{{baseUrl}}"],"path": ["api","users","login"]}
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {"method": "POST","header": [{"key":"Authorization","value":"Bearer {{authToken}}"}],"url": {"raw": "{{baseUrl}}/api/users/logout","host": ["{{baseUrl}}"],"path": ["api","users","logout"]}}
+        },
+        {
+          "name": "Refresh Token",
+          "request": {"method": "POST","header": [],"url": {"raw": "{{baseUrl}}/api/users/refresh-token","host": ["{{baseUrl}}"],"path": ["api","users","refresh-token"]}}
+        },
+        {
+          "name": "Get Profile",
+          "request": {"method": "GET","header":[{"key":"Authorization","value":"Bearer {{authToken}}"}],"url": {"raw":"{{baseUrl}}/api/users/profile","host":["{{baseUrl}}"],"path":["api","users","profile"]}}
+        },
+        {
+          "name": "Get All Users",
+          "request": {"method": "GET","header":[{"key":"Authorization","value":"Bearer {{authToken}}"}],"url": {"raw":"{{baseUrl}}/api/users/all","host":["{{baseUrl}}"],"path":["api","users","all"]}}
+        },
+        {
+          "name": "Update User",
+          "request": {"method": "PATCH","header":[{"key":"Authorization","value":"Bearer {{authToken}}"}],"url": {"raw":"{{baseUrl}}/api/users/update/:id","host":["{{baseUrl}}"],"path":["api","users","update",":id"]}}
+        },
+        {
+          "name": "Delete User",
+          "request": {"method": "PATCH","header":[{"key":"Authorization","value":"Bearer {{authToken}}"}],"url": {"raw":"{{baseUrl}}/api/users/delete/:id","host":["{{baseUrl}}"],"path":["api","users","delete",":id"]}}
+        }
+      ]
+    },
+    {
+      "name": "Videos",
+      "item": [
+        {"name": "Get All Videos","request": {"method":"GET","header":[],"url": {"raw":"{{baseUrl}}/api/videos/","host":["{{baseUrl}}"],"path":["api","videos",""]}}},
+        {"name": "Get Video By Id","request": {"method":"GET","header":[{"key":"Authorization","value":"Bearer {{authToken}}"}],"url":{"raw":"{{baseUrl}}/api/videos/:videoId","host":["{{baseUrl}}"],"path":["api","videos",":videoId"]}}},
+        {"name": "Upload Video","request": {"method":"POST","header":[{"key":"Authorization","value":"Bearer {{authToken}}"}],"body":{"mode":"formdata","formdata":[{"key":"title","type":"text"},{"key":"description","type":"text"},{"key":"videoFile","type":"file"},{"key":"thumbnail","type":"file"}]},"url":{"raw":"{{baseUrl}}/api/videos/upload","host":["{{baseUrl}}"],"path":["api","videos","upload"]}}},
+        {"name":"Get My Uploads","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{authToken}}"}],"url":{"raw":"{{baseUrl}}/api/videos/my-uploads","host":["{{baseUrl}}"],"path":["api","videos","my-uploads"]}}},
+        {"name":"Delete Video","request":{"method":"DELETE","header":[{"key":"Authorization","value":"Bearer {{authToken}}"}],"url":{"raw":"{{baseUrl}}/api/videos/:videoId","host":["{{baseUrl}}"],"path":["api","videos",":videoId"]}}},
+        {"name":"Edit Video","request":{"method":"PATCH","header":[{"key":"Authorization","value":"Bearer {{authToken}}"}],"body":{"mode":"raw","raw":"{\n  \"title\": \"New title\"\n}"},"url":{"raw":"{{baseUrl}}/api/videos/:videoId","host":["{{baseUrl}}"],"path":["api","videos",":videoId"]}}},
+        {"name":"Publish / Unpublish","request":{"method":"PATCH","header":[{"key":"Authorization","value":"Bearer {{authToken}}"}],"url":{"raw":"{{baseUrl}}/api/videos/publish/:videoId","host":["{{baseUrl}}"],"path":["api","videos","publish",":videoId"]}}},
+        {"name":"Like Video","request":{"method":"POST","header":[{"key":"Authorization","value":"Bearer {{authToken}}"}],"url":{"raw":"{{baseUrl}}/api/videos/like/:videoId","host":["{{baseUrl}}"],"path":["api","videos","like",":videoId"]}}}
+      ]
+    },
+    {
+      "name": "Comments",
+      "item": [
+  {"name":"Get Comments","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{authToken}}"}],"url":{"raw":"{{baseUrl}}/api/comment/:videoId?page=1&limit=10","host":["{{baseUrl}}"],"path":["api","comment",":videoId"],"query":[{"key":"page","value":"1"},{"key":"limit","value":"10"}]},"description":"Fetch paginated comments for a video. Requires JWT auth."}},
+  {"name":"Add Comment","request":{"method":"POST","header":[{"key":"Authorization","value":"Bearer {{authToken}}"}],"body":{"mode":"raw","raw":"{\n  \"text\": \"Nice video!\"\n}"},"url":{"raw":"{{baseUrl}}/api/comment/:videoId","host":["{{baseUrl}}"],"path":["api","comment",":videoId"]}}},
+  {"name":"Like Comment","request":{"method":"POST","header":[{"key":"Authorization","value":"Bearer {{authToken}}"}],"url":{"raw":"{{baseUrl}}/api/comment/like/:videoId","host":["{{baseUrl}}"],"path":["api","comment","like",":videoId"]}}}
+      ]
+    }
+  ]
+}
