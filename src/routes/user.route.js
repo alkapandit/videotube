@@ -33,8 +33,8 @@ router.route("/login").post(loginUser);
 //secured routes
 router.route("/logout").post(verifyJWT, logoutUser);
 router.route("/refresh-token").post(refreshAccessToken);
-router.route("/current").get(verifyJWT, getCurrentUser);
-router.route("/allUsers").get(verifyJWT, getAllUser);
+router.route("/profile").get(verifyJWT, getCurrentUser);
+router.route("/all").get(verifyJWT, getAllUser);
 router.route("/update/:id").patch(verifyJWT, updateUser);
 router.route("/delete/:id").patch(verifyJWT, deleteUser);
 
