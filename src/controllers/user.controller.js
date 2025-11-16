@@ -2,8 +2,8 @@ import { ApiError } from "../utils/apiError.util.js";
 import { asyncHandler } from "../utils/asyncHandler.util.js";
 import { User } from "../models/user.model.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.util.js";
-import { ApiResponse } from "../utils/apiResponse.util.js";
 import jwt from "jsonwebtoken";
+import { ApiResponse } from "../utils/ApiResponse.util.js";
 
 const generateAccessAndRefereshTokens = async (userId) => {
   try {
